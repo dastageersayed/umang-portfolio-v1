@@ -1,0 +1,48 @@
+@import "tailwindcss";
+
+@theme {
+  --color-foam: #353839;
+  --color-plate: #414547;
+  --color-ink: #e9ecea;
+  --color-muted: #a9b0ae;
+  --color-rule: #575c5e;
+  --color-pin: #ff5b1f;
+  --color-pin-text: #ff7d4d;
+  --color-onpin: #17191a;
+  --font-display: "Young Serif", Georgia, serif;
+  --font-body: "Hanken Grotesk", system-ui, sans-serif;
+  --font-label: "Martian Mono", ui-monospace, monospace;
+}
+
+html { scroll-behavior: smooth; scroll-padding-top: 4.5rem; }
+body {
+  background: var(--color-foam);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+}
+::selection { background: var(--color-pin); color: var(--color-onpin); }
+:focus-visible { outline: 2px solid var(--color-pin-text); outline-offset: 3px; border-radius: 2px; }
+.on-pin ::selection { background: var(--color-onpin); color: var(--color-pin); }
+.on-pin :focus-visible { outline-color: var(--color-onpin); }
+::-webkit-scrollbar { width: 10px; }
+::-webkit-scrollbar-track { background: var(--color-foam); }
+::-webkit-scrollbar-thumb { background: var(--color-rule); border: 2px solid var(--color-foam); border-radius: 8px; }
+a { text-underline-offset: 0.2em; }
+
+@keyframes tag-in { from { opacity: 0; transform: translateY(8px) rotate(-2deg); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: no-preference) {
+  .tag-in { animation: tag-in 0.7s cubic-bezier(0.16, 1, 0.3, 1) both; }
+}
+@keyframes head-pulse { 0%, 100% { transform: scale(0.8); } 50% { transform: scale(1.6); } }
+@media (prefers-reduced-motion: no-preference) { .loader-head { animation: head-pulse 0.7s ease-in-out infinite; } }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+.hatch { background-image: repeating-linear-gradient(135deg, transparent 0 9px, color-mix(in srgb, var(--color-ink) 9%, transparent) 9px 10px); }
+
+/* The scene's own vignette is baked in and opaque; feather its left, top and right edges into the page ground. */
+.feather {
+  mask-image: linear-gradient(to right, transparent, #000 22%, #000 94%, transparent), linear-gradient(to bottom, transparent, #000 10%);
+  mask-composite: intersect;
+  -webkit-mask-composite: source-in;
+}
